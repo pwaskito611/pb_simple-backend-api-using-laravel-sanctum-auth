@@ -26,6 +26,9 @@ class ForgotPasswordController extends Controller
         //store data to database
         $this->storeData($request);
         
+        //create token for forgot password
+        $this->createToken();
+        
         //send mail
         $this->sendMail($request);
 
@@ -56,11 +59,12 @@ class ForgotPasswordController extends Controller
         }
     }
 
-    private function storeData($request) {
-          //create token
+    private function createToken() {
+         //create token for forgot password
           $this->token = STR::random(64);
-
-
+    }
+    
+    private function storeData($request) {
           //store to db
           \DB::table('password_resets')->insert([
               'email' => $request->email, 
