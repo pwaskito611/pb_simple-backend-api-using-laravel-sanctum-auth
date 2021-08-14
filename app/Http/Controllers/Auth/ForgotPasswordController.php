@@ -22,12 +22,12 @@ class ForgotPasswordController extends Controller
         if($isValidatedError !== null){
             return $isValidatedError;//send json response
         }
-
-        //store data to database
-        $this->storeData($request);
         
         //create token for forgot password
         $this->createToken();
+
+        //store data to database
+        $this->storeData($request);
         
         //send mail
         $this->sendMail($request);
